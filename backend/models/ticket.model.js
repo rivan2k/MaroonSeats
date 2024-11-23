@@ -1,9 +1,9 @@
 import mongoose, { Schema } from "mongoose";
 
 const productSchema = mongoose.Schema({
-    name:{
+    eventId:{
         type: String,
-        required: true
+        required: true,
     },
     price:{
         type: Number,
