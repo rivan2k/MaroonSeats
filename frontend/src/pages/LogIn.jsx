@@ -16,7 +16,7 @@ function LogIn() {
           placeholder='Password' 
           style={{ width: '250px' }}
         />
-        <Link to="/ManagerTickets"> {/*needs to be changed to the manager homepage*/}
+        <Link to="/manager_view"> {/*needs to be changed to the manager homepage*/}
           <IconCornerDownRight size={24}></IconCornerDownRight>
         </Link>
       </Stack>
