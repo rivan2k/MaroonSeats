@@ -6,6 +6,7 @@ import EventPage from "./pages/EventPage";
 import LogIn from "./pages/LogIn";
 import PostPurchase from "./pages/PostPurchase";
 import ManagerView from "./pages/ManagerView";
+import ManagerAdd from "./pages/ManagerAdd";
 import '@mantine/core/styles.css';
 import { NavbarMinimal } from "./components/NavbarMinimal"
 
@@ -22,6 +23,7 @@ function App() {
         <Route path = "/login" element={<LogIn />} />
         <Route path = "/thanks" element={<PostPurchase/>} />
         <Route path = "/manager_view" element={<ManagerView/>} />
+        <Route path = "/add_event" element={<ManagerAdd/>} />
         
       </Routes>
     </>

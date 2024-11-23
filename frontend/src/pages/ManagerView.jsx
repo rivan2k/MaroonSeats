@@ -73,7 +73,7 @@ function ManagerView() {
 
         <Group style={{ justifyContent: 'center' }}>
           <Button variant="filled" color="red">Delete</Button>
-          <Link to="/ManagerAdd">
+          <Link to="/add_event">
             <Button variant="filled" color="green">Add</Button>
           </Link>
         </Group>
