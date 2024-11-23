@@ -12,7 +12,6 @@ function Home() {
   return (
     <>
       <Container py="xl" style={{ backgroundColor: '#f8f9fa', textAlign: 'center' }}>
-        {/* Hero Text */}
         <Text size="xl" weight={700}>
           Find Your Next Event
         </Text>
