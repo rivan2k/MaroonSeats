@@ -1,15 +1,19 @@
 import mongoose, { Schema } from "mongoose";
 
-const ticketSchema = mongoose.Schema({
+const eventSchema = mongoose.Schema({
     eventId:{
         type: String,
         required: true,
     },
-    price:{
-        type: Number,
+    name:{
+        type: String,
         required: true
     },
-    image:{
+    time:{
+        type: String,
+        required: true
+    },
+    location:{
         type: String,
         required: true
     },
@@ -17,6 +21,6 @@ const ticketSchema = mongoose.Schema({
     timestamps: true
 });
 
-const Ticket = mongoose.model('Ticket', ticketSchema);
+const Event = mongoose.model('Event', eventSchema);
 
-export default Ticket;
+export default Event;

@@ -1,4 +1,5 @@
-import Product from '../models/ticket.model.js';
+import Ticket from '../models/ticket.model.js';
+import Event from "../models/event.model.js";
 import mongoose from "mongoose";
 
 export const getProducts = async (req,res) => {
@@ -11,24 +12,28 @@ export const getProducts = async (req,res) => {
     }
 }
 
-export const createProduct = async (req,res) => {
-    const product = req.body;
-
-    if(!product.name || !product.price || !product.image){
-        return res.status(400).json({success:false, message: "Please provide all fields" });
+export const createProduct = async (req, res) => {
+    const { eventId, price, image } = req.body;
+  
+    if (!eventId || !price || !image) {
+      return res.status(400).json({ success: false, message: "Please provide all fields" });
     }
-
-    const newProduct = new Product(product);
-
-    try{
-        await newProduct.save();
-        res.status(201).json({success:true, data: newProduct});
+  
+    try {
+      const event = await Event.findOne({ eventId });
+      if (!event) {
+        return res.status(400).json({ success: false, message: "Invalid eventId. Event not found." });
+      }
+  
+      const newTicket = new Ticket({ eventId, price, image });
+      await newTicket.save();
+  
+      res.status(201).json({ success: true, data: newTicket });
+    } catch (error) {
+      console.error("Error creating ticket:", error.message);
+      res.status(500).json({ success: false, message: "Server Error" });
     }
-    catch(error){
-        console.error("Error in Create Product:", error.message);
-        res.status(500).json({success: false, message: "Server Error"});
-    }
-}
+  };
 
 
 export const updateProduct = async (req,res) => {
