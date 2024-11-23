@@ -1,12 +1,12 @@
 import express, { Router } from "express"
-import { getProducts, createProduct, updateProduct, deleteProduct } from "../controllers/ticket.controller.js";
+import { getProducts, createTicket, updateProduct, deleteProduct } from "../controllers/ticket.controller.js";
 
 
 const router = express.Router();
 
 router.get("/", getProducts);
 
-router.post("/", createProduct);
+router.post("/", createTicket);
 
 router.put("/:id", updateProduct);
 

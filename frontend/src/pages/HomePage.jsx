@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';  
 import { Container, Grid, Text, Button, Image } from '@mantine/core';
 
 function Home() {
@@ -16,21 +17,12 @@ function Home() {
           Browse Tickets
         </Button>
       </Container>
-      <Grid cols={2} spacing="md" mt="xl">
-          <Button size="md" variant="outline">
-            Temp 1
-          </Button>
-          <Button size="md" variant="outline">
-            Temp 2
-          </Button>
-          <Button size="md" variant="outline">
-            Temp 3
-          </Button>
-          <Button size="md" variant="outline">
-            Temp 4
-          </Button>
-        </Grid>
-    </>
+      <Link to = "/event">
+        <Button size="md" variant="outline">
+          Event 1
+        </Button>
+      </Link>
+  </>
   );
 }
 

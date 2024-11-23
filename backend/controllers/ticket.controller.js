@@ -12,7 +12,7 @@ export const getProducts = async (req,res) => {
     }
 }
 
-export const createProduct = async (req, res) => {
+export const createTicket = async (req, res) => {
     const { eventId, price, image } = req.body;
   
     if (!eventId || !price || !image) {
@@ -20,12 +20,19 @@ export const createProduct = async (req, res) => {
     }
   
     try {
-      const event = await Event.findOne({ eventId });
+      const event = await Event.findById(eventId);
+  
       if (!event) {
-        return res.status(400).json({ success: false, message: "Invalid eventId. Event not found." });
+        return res.status(404).json({ success: false, message: "Event not found" });
       }
   
-      const newTicket = new Ticket({ eventId, price, image });
+     
+      const newTicket = new Ticket({
+        eventId,  
+        price,
+        image,
+      });
+  
       await newTicket.save();
   
       res.status(201).json({ success: true, data: newTicket });
@@ -34,6 +41,7 @@ export const createProduct = async (req, res) => {
       res.status(500).json({ success: false, message: "Server Error" });
     }
   };
+  
 
 
 export const updateProduct = async (req,res) => {

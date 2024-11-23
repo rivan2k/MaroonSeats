@@ -14,7 +14,7 @@ export const getEvents = async (req, res) => {
 export const createEvent = async (req, res) => {
   const event = req.body;
 
-  if (!event.eventId || !event.name || !event.time || !event.location) {
+  if (!event.name || !event.time || !event.location) {
     return res.status(400).json({ success: false, message: "Please provide all fields" });
   }
 

@@ -1,10 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
 const eventSchema = mongoose.Schema({
-    eventId:{
-        type: String,
-        required: true,
-    },
     name:{
         type: String,
         required: true

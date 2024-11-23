@@ -1,9 +1,10 @@
 import mongoose, { Schema } from "mongoose";
 
 const ticketSchema = mongoose.Schema({
-    eventId:{
-        type: String,
-        required: true,
+    eventId: {
+        type: mongoose.Schema.Types.ObjectId,  
+        ref: 'Event', 
+        required: true
     },
     price:{
         type: Number,
