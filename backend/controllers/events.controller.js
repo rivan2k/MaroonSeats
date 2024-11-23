@@ -11,10 +11,26 @@ export const getEvents = async (req, res) => {
   }
 };
 
+export const getEventById = async (req, res) => {
+  try {
+    const { id } = req.params; 
+    const event = await Event.findById(id); 
+
+    if (!event) {
+      return res.status(404).json({ success: false, message: "Event not found" });
+    }
+
+    res.status(200).json({ success: true, data: event });
+  } catch (error) {
+    console.log("Error fetching event:", error.message);
+    res.status(500).json({ success: false, message: "Server Error" });
+  }
+};
+
 export const createEvent = async (req, res) => {
   const event = req.body;
 
-  if (!event.name || !event.time || !event.location) {
+  if (!event.name || !event.date || !event.time || !event.location) {
     return res.status(400).json({ success: false, message: "Please provide all fields" });
   }
 

@@ -3,6 +3,12 @@ import { Link } from 'react-router-dom';
 import { Container, Grid, Text, Button, Image } from '@mantine/core';
 
 function Home() {
+  const events = [
+    { id: "674225e96471f721302a0554", name: "Event 1" },
+    { id: "2", name: "Event 2" },
+    { id: "3", name: "Event 3" },
+  ];
+
   return (
     <>
       <Container py="xl" style={{ backgroundColor: '#f8f9fa', textAlign: 'center' }}>
@@ -14,14 +20,16 @@ function Home() {
           Your gateway to unforgettable experiences starts here.
         </Text>
         <Button mt="lg" size="md" variant="gradient" gradient={{ from: 'blue', to: 'cyan' }}>
-          Browse Tickets
+          Browse Events
         </Button>
       </Container>
-      <Link to = "/event">
-        <Button size="md" variant="outline">
-          Event 1
-        </Button>
-      </Link>
+      {events.map((event) => (
+        <Link key={event.id} to={`/event/${event.id}`}>
+          <Button size="md" variant="outline">
+            {event.name}
+          </Button>
+        </Link>
+      ))}
   </>
   );
 }
