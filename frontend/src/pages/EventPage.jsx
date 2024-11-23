@@ -82,24 +82,20 @@ function EventPage() {
 
   return (
     <>
-      <div style={{ textAlign: "center", marginTop: "50px" }}>
-        <h1>Event Details</h1>
+      <div style={{ textAlign: "left", marginTop: "20px", paddingBottom: "10px", paddingLeft: "20px" }}>
         {event ? (
           <div>
-            <h2>{event.name}</h2>
-            <p>{event.time}</p>
-            <p>{event.location}</p>
-            <p>{event.date}</p>
+            <h2 style={{ marginBottom: "0px" }}>{event.name}</h2>
+            <p style={{ marginBottom: "0px" }}>Time: {event.time}</p>
+            <p style={{ marginBottom: "0px" }}>Location: {event.location}</p>
+            <p style={{ marginBottom: "30px" }}>Date: {event.date}</p>
           </div>
         ) : (
-          <p>No event found.</p>
+          <p>No event details available.</p>
         )}
-        </div>
+      </div>
         <div className={classes.container}>
         <Stack className={classes.stack}>
-          <Title className={classes.title}>*Event Name* {/*This would be where the eventID would go*/}</Title>
-          <Text size="md" className={classes.title}>Location: Kyle Field - Date: *temp date* - Time: *temp time*</Text>
-
           <Table highlightOnHover>
             <Table.Thead>
               <Table.Tr>
