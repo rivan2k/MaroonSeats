@@ -46,7 +46,7 @@ export function NavbarMinimal() {
       <Container size="md">
         <div className={classes.inner}>
         <Link to="/" className={classes.home}>
-          <h1> Home </h1>
+          <h1>Maroon Seats</h1>
         </Link>
           <Group gap={5} visibleFrom="sm">
             {items}
