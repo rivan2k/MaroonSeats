@@ -5,15 +5,7 @@ import classes from './NavbarMinimal.module.css';
 import { Link } from 'react-router-dom';
 
 const links = [
-  {
-    link: '#1',
-    label: 'Buy',
-    links: [
-      { link: '/passes', label: 'Passes' },
-      { link: '/tickets', label: 'Tickets' },
-    ],
-  },
-  { link: '/postings', label: 'Postings' },
+  { link: '/login', label: 'Log-In' },
 ];
 
 export function NavbarMinimal() {
