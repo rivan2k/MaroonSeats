@@ -88,7 +88,7 @@ function EventPage() {
             <h2 style={{ marginBottom: "0px" }}>{event.name}</h2>
             <p style={{ marginBottom: "0px" }}>Time: {event.time}</p>
             <p style={{ marginBottom: "0px" }}>Location: {event.location}</p>
-            <p style={{ marginBottom: "30px" }}>Date: {event.date}</p>
+            <p style={{ marginBottom: "60px" }}>Date: {event.date}</p>
           </div>
         ) : (
           <p>No event details available.</p>
