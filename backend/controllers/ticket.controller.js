@@ -13,34 +13,47 @@ export const getProducts = async (req,res) => {
 }
 
 export const createTicket = async (req, res) => {
-    const { eventId, price, image } = req.body;
-  
-    if (!eventId || !price || !image) {
-      return res.status(400).json({ success: false, message: "Please provide all fields" });
+  const { eventId, section, price, availableSeats } = req.body;
+
+  if (!eventId || !section || !price || !availableSeats) {
+    return res.status(400).json({
+      success: false,
+      message: "Please provide eventId, section, price, and availableSeats",
+    });
+  }
+
+  try {
+    const event = await Event.findById(eventId);
+    if (!event) {
+      return res.status(404).json({ success: false, message: "Event not found" });
     }
-  
-    try {
-      const event = await Event.findById(eventId);
-  
-      if (!event) {
-        return res.status(404).json({ success: false, message: "Event not found" });
-      }
-  
-     
-      const newTicket = new Ticket({
-        eventId,  
-        price,
-        image,
+
+    const existingTicket = await Ticket.findOne({ event: eventId, section, price });
+
+    if (existingTicket) {
+      return res.status(400).json({
+        success: false,
+        message: "A ticket with this price and section already exists for the event.",
       });
-  
-      await newTicket.save();
-  
-      res.status(201).json({ success: true, data: newTicket });
-    } catch (error) {
-      console.error("Error creating ticket:", error.message);
-      res.status(500).json({ success: false, message: "Server Error" });
     }
-  };
+
+   
+    const newTicket = new Ticket({
+      event: eventId, 
+      section,
+      price,
+      availableSeats,
+    });
+
+    await newTicket.save();
+
+    res.status(201).json({ success: true, data: newTicket });
+  } catch (error) {
+    console.error("Error creating ticket:", error.message);
+    res.status(500).json({ success: false, message: "Server Error" });
+  }
+};
+
   
 
 

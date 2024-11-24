@@ -6,14 +6,22 @@ const ticketSchema = mongoose.Schema({
         ref: 'Event', 
         required: true
     },
+    section:{
+        type: String,
+        required: true
+    },
     price:{
         type: Number,
         required: true
     },
-    image:{
-        type: String,
+    totalSeats:{
+        type: Number,
         required: true
     },
+    availableSeats:{
+        type: Number,
+        required: true
+    }
 },{
     timestamps: true
 });

@@ -13,19 +13,44 @@ export const getEvents = async (req, res) => {
 
 export const getEventById = async (req, res) => {
   try {
-    const { id } = req.params; 
-    const event = await Event.findById(id); 
+    const { id } = req.params;
+    const event = await Event.findById(id);
 
     if (!event) {
       return res.status(404).json({ success: false, message: "Event not found" });
     }
+    const tickets = await Ticket.aggregate([
+      { $match: { event: event._id } }, 
+      {
+        $group: {
+          _id: "$section", 
+          totalAvailableSeats: { $sum: "$availableSeats" }, 
+          prices: { $push: "$price" }, 
+        },
+      },
+      {
+        $project: {
+          section: "$_id", 
+          _id: 0, 
+          totalAvailableSeats: 1,
+          prices: 1,
+        },
+      },
+    ]);
 
-    res.status(200).json({ success: true, data: event });
+    res.status(200).json({
+      success: true,
+      data: {
+        event,
+        tickets,
+      },
+    });
   } catch (error) {
-    console.log("Error fetching event:", error.message);
+    console.error("Error fetching event:", error.message);
     res.status(500).json({ success: false, message: "Server Error" });
   }
 };
+
 
 export const createEvent = async (req, res) => {
   const event = req.body;

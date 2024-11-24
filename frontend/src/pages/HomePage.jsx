@@ -12,7 +12,7 @@ function Home() {
   const icon = <IconAt style={{ width: rem(12), height: rem(12) }} />;
   return (
     <>
-      <Container py="xl" style={{ backgroundColor: '#f8f9fa', textAlign: 'center' }}>
+      <Container py="xl" mb="60px" style={{ backgroundColor: '#f8f9fa', textAlign: 'center' }}>
         <Text size="xl" weight={700}>
           Find Your Next Event
         </Text>
