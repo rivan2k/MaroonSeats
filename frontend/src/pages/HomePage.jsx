@@ -106,10 +106,7 @@ function Home() {
             With Aggies standout Mallory Talbert leading the charge at the net and LSU's strong defense anchored by Madie Jones, 
             this matchup is set to be a fierce battle for supremacy.
             </Text>
-
-            <Button color="blue" fullWidth mt="md" radius="md" variant="gradient" gradient={{ from: '#461D7C', to: 'maroon' }}>
-              Get Tickets Now
-            </Button>
+            
             <Link to="/event/67425be4473fceb7a6cd3597" style={{ textDecoration: 'none' }}>
               <Button color="blue" fullWidth mt="md" radius="md" variant="gradient" gradient={{ from: '#461D7C', to: '#700000' }}>
                 Get Tickets Now
