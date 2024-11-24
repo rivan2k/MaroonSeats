@@ -13,7 +13,7 @@ function EventPage() {
   const [selectedRows, setSelectedRows] = useState([]);
   const [seats, setSeats] = useState({}); 
 
-  // Move the fetchEvent function outside of useEffect
+ 
   const fetchEvent = async () => {
     try {
       const response = await axios.get(`http://localhost:5000/api/events/${id}`);
@@ -26,7 +26,7 @@ function EventPage() {
     }
   };
 
-  // Load event data when the component is mounted or when `id` changes
+  
   useEffect(() => {
     fetchEvent();
   }, [id]);
@@ -54,12 +54,12 @@ function EventPage() {
       const ticketsToUpdate = elements.map((element) => {
         const selectedSeats = seats[element.price] || 0;
         return {
-          ticketId: element._id || element.price, // Use `element.price` as fallback if no `_id`
+          ticketId: element._id || element.price,
           availableSeats: element.availableSeats - selectedSeats
         };
       });
 
-      // Update ticket data on the backend
+
       await Promise.all(
         ticketsToUpdate.map(ticket =>
           axios.put(`http://localhost:5000/api/tickets/${ticket.ticketId}`, {
@@ -70,10 +70,10 @@ function EventPage() {
 
       alert('Tickets successfully purchased!');
       
-      // Optionally, refresh the event data to reflect updated seat availability
-      fetchEvent();  // Refresh the event data to reflect updated seat availability
+      
+      fetchEvent();  
 
-      // Navigate to the "thanks" page
+
       navigate("/thanks");
     } catch (error) {
       console.error("Error purchasing tickets:", error);
