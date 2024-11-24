@@ -1,15 +1,15 @@
 import express, { Router } from "express"
-import { getProducts, createTicket, updateProduct, deleteProduct } from "../controllers/ticket.controller.js";
+import { getTicket, createTicket, updateTicket, deleteTicket } from "../controllers/ticket.controller.js";
 
 
 const router = express.Router();
 
-router.get("/", getProducts);
+router.get("/", getTicket);
 
 router.post("/", createTicket);
 
-router.put("/:id", updateProduct);
+router.put("/:id", updateTicket);
 
-router.delete("/:id", deleteProduct);
+router.delete("/:id", deleteTicket);
 
 export default router;

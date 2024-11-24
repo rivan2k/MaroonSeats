@@ -17,10 +17,10 @@ const eventSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    tickets:{
+    tickets:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Ticket'
-    },
+    }],
 },{
     timestamps: true
 });
