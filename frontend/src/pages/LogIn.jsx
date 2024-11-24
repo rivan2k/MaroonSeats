@@ -16,7 +16,7 @@ function LogIn() {
           placeholder='Password' 
           style={{ width: '250px' }}
         />
-        <Link to="/manager_view"> 
+        <Link to="/manager_view/67428d7d9882475475986f18"> 
           <IconCornerDownRight size={24}></IconCornerDownRight>
         </Link>
       </Stack>

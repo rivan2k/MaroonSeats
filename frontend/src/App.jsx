@@ -20,7 +20,7 @@ function App() {
         <Route path = "/event/:id" element={<EventPage />} />
         <Route path = "/login" element={<LogIn />} />
         <Route path = "/thanks" element={<PostPurchase/>} />
-        <Route path = "/manager_view" element={<ManagerView/>} />
+        <Route path="/manager_view/:id" element={<ManagerView/>} />
         <Route path = "/add_event" element={<ManagerAdd/>} />
         
       </Routes>

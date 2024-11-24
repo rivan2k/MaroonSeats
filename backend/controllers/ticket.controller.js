@@ -63,29 +63,48 @@ export const createTicket = async (req, res) => {
 
 export const updateTicket = async (req, res) => {
   const { id } = req.params;
-  const { availableSeats } = req.body;  
+  const { price, section, totalSeats, availableSeats } = req.body;
+
+  if (price && isNaN(price)) {
+    return res.status(400).json({ success: false, message: "Price must be a number" });
+  }
+  if (totalSeats && isNaN(totalSeats)) {
+    return res.status(400).json({ success: false, message: "Total seats must be a number" });
+  }
+  if (availableSeats && isNaN(availableSeats)) {
+    return res.status(400).json({ success: false, message: "Available seats must be a number" });
+  }
+  if (section && typeof section !== "string") {
+    return res.status(400).json({ success: false, message: "Section must be a valid string" });
+  }
+
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ success: false, message: "Invalid Ticket ID" });
   }
 
   try {
-    const updatedTicket = await Ticket.findByIdAndUpdate(
-      id,
-      { availableSeats },
-      { new: true } 
-    );
+
+    const updateFields = {};
+    if (price !== undefined) updateFields.price = parseFloat(price); 
+    if (section !== undefined) updateFields.section = section.trim();  
+    if (totalSeats !== undefined) updateFields.totalSeats = parseInt(totalSeats); 
+    if (availableSeats !== undefined) updateFields.availableSeats = parseInt(availableSeats); 
+
+    const updatedTicket = await Ticket.findByIdAndUpdate(id, updateFields, { new: true });
 
     if (!updatedTicket) {
       return res.status(404).json({ success: false, message: "Ticket not found" });
     }
 
     res.status(200).json({ success: true, data: updatedTicket });
+
   } catch (error) {
     console.error("Error updating ticket:", error.message);
     res.status(500).json({ success: false, message: "Server Error" });
   }
 };
+
 
 
 
