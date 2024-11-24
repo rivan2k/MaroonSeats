@@ -1,31 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import classes from "./Pages.module.css";
 import { Stack, Table, Checkbox, Button } from "@mantine/core";
 
 function EventPage() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [selectedRows, setSelectedRows] = useState([]);
   const [seats, setSeats] = useState({}); 
 
-  
-  useEffect(() => {
-    const fetchEvent = async () => {
-      try {
-        const response = await axios.get(`http://localhost:5000/api/events/${id}`);
-        setEvent(response.data.data);
-      } catch (error) {
-        setError("Failed to fetch event details");
-        console.error("Error fetching event:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // Move the fetchEvent function outside of useEffect
+  const fetchEvent = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/events/${id}`);
+      setEvent(response.data.data);
+    } catch (error) {
+      setError("Failed to fetch event details");
+      console.error("Error fetching event:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  // Load event data when the component is mounted or when `id` changes
+  useEffect(() => {
     fetchEvent();
   }, [id]);
 
@@ -45,6 +47,38 @@ function EventPage() {
       ...prevSeats,
       [price]: value ? parseInt(value, 10) : 0
     }));
+  };
+
+  const handleBuyButtonClick = async () => {
+    try {
+      const ticketsToUpdate = elements.map((element) => {
+        const selectedSeats = seats[element.price] || 0;
+        return {
+          ticketId: element._id || element.price, // Use `element.price` as fallback if no `_id`
+          availableSeats: element.availableSeats - selectedSeats
+        };
+      });
+
+      // Update ticket data on the backend
+      await Promise.all(
+        ticketsToUpdate.map(ticket =>
+          axios.put(`http://localhost:5000/api/tickets/${ticket.ticketId}`, {
+            availableSeats: ticket.availableSeats
+          })
+        )
+      );
+
+      alert('Tickets successfully purchased!');
+      
+      // Optionally, refresh the event data to reflect updated seat availability
+      fetchEvent();  // Refresh the event data to reflect updated seat availability
+
+      // Navigate to the "thanks" page
+      navigate("/thanks");
+    } catch (error) {
+      console.error("Error purchasing tickets:", error);
+      alert("There was an error with your purchase.");
+    }
   };
 
   const rows = elements.map(element => {
@@ -116,9 +150,9 @@ function EventPage() {
             <Table.Tbody>{rows}</Table.Tbody>
           </Table>
 
-          <Link to="/thanks" style={{ textAlign: "center" }}>
-            <Button variant="filled" className={classes.button}>Buy</Button>
-          </Link>
+          <Button variant="filled" className={classes.button} onClick={handleBuyButtonClick} style={{ textAlign: "center" }}>
+            Buy
+          </Button>
         </Stack>
       </div>
     </>

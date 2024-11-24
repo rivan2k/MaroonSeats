@@ -63,7 +63,7 @@ export const createTicket = async (req, res) => {
 
 export const updateTicket = async (req, res) => {
   const { id } = req.params;
-  const { section, price, availableSeats } = req.body;
+  const { availableSeats } = req.body;  
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ success: false, message: "Invalid Ticket ID" });
@@ -72,8 +72,8 @@ export const updateTicket = async (req, res) => {
   try {
     const updatedTicket = await Ticket.findByIdAndUpdate(
       id,
-      { section, price, availableSeats },
-      { new: true }
+      { availableSeats },
+      { new: true } 
     );
 
     if (!updatedTicket) {
@@ -86,6 +86,7 @@ export const updateTicket = async (req, res) => {
     res.status(500).json({ success: false, message: "Server Error" });
   }
 };
+
 
 
 
