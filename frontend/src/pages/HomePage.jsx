@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';  
-import { Grid, Button, rem,  Card, Image, Text, Badge, Group  } from '@mantine/core';
+import { Grid, Button, rem,  Card, Image, Text, Badge, Group, Container  } from '@mantine/core';
 import { IconAt } from '@tabler/icons-react';
 
 function Home() {
@@ -12,6 +12,14 @@ function Home() {
   const icon = <IconAt style={{ width: rem(12), height: rem(12) }} />;
   return (
     <>
+      <Container py="xl" style={{ backgroundColor: '#f8f9fa', textAlign: 'center' }}>
+        <Text size="xl" weight={700}>
+          Find Your Next Event
+        </Text>
+        <Text size="lg" mt="md" color="dimmed">
+          Your gateway to unforgettable experiences starts here.
+        </Text>
+      </Container>
       <Grid justify="center" align="stretch">
         <Grid.Col span={3} style={{ minHeight: rem(80) }}>
           <Card shadow="sm" padding="lg" radius="md" withBorder>
@@ -97,30 +105,12 @@ function Home() {
             this matchup is set to be a fierce battle for supremacy.
             </Text>
 
-            <Button color="blue" fullWidth mt="md" radius="md" variant="gradient" gradient={{ from: '#461D7C', to: '#700000' }}>
+            <Button color="blue" fullWidth mt="md" radius="md" variant="gradient" gradient={{ from: '#461D7C', to: 'maroon' }}>
               Get Tickets Now
             </Button>
           </Card>
         </Grid.Col>
     </Grid>
-      {/* <Container py="xl" style={{ backgroundColor: '#f8f9fa', textAlign: 'center' }}>
-        <Text size="xl" weight={700}>
-          Find Your Next Event
-        </Text>
-        <Text size="lg" mt="md" color="dimmed">
-          Your gateway to unforgettable experiences starts here.
-        </Text>
-        <Button mt="lg" size="md" variant="gradient" gradient={{ from: 'blue', to: 'cyan' }}>
-          Browse Events
-        </Button>
-      </Container> */}
-      {/* {events.map((event) => (
-        <Link key={event.id} to={`/event/${event.id}`}>
-          <Button size="md" variant="outline">
-            {event.name}
-          </Button>
-        </Link>
-      ))} */}
   </>
   );
 }
