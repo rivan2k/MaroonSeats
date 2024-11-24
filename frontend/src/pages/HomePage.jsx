@@ -5,9 +5,9 @@ import { IconAt } from '@tabler/icons-react';
 
 function Home() {
   const events = [
-    { id: "674225e96471f721302a0554", name: "Event 1" },
-    { id: "2", name: "Event 2" },
-    { id: "3", name: "Event 3" },
+    { id: "67425b6f473fceb7a6cd3593", name: "Texas A&M vs. UT Austin" },
+    { id: "67425b94473fceb7a6cd3595", name: "Texas A&M vs. Wake Forest" },
+    { id: "67425be4473fceb7a6cd3597", name: "Texas A&M vs. LSU" },
   ];
   const icon = <IconAt style={{ width: rem(12), height: rem(12) }} />;
   return (
@@ -45,10 +45,11 @@ function Home() {
               Texas A&M faces off against UT Austin tomorrow in a showdown that promises intensity, pride, and plenty of action. 
               Who will come out on top in this heated battle for supremacy?
             </Text>
-
-            <Button color="blue" fullWidth mt="md" radius="md" variant="gradient" gradient={{ from: '#CC5500', to: '#700000' }}>
-              Get Tickets Now
-            </Button>
+            <Link to="/event/67425b6f473fceb7a6cd3593" style={{ textDecoration: 'none' }}>
+              <Button color="blue" fullWidth mt="md" radius="md" variant="gradient" gradient={{ from: '#CC5500', to: '#700000' }}>
+                Get Tickets Now
+              </Button>
+            </Link>
           </Card>
         </Grid.Col>
         <Grid.Col span={3} style={{ minHeight: rem(120) }}>
@@ -74,10 +75,11 @@ function Home() {
               Texas A&M takes on Wake Forest tomorrow, with the Aggies looking to build on their strong defense and depth. 
               Wake Forest, led by Tyree Appleby, aims to showcase their high-powered offense in this exciting matchup.
             </Text>
-
-            <Button color="blue" fullWidth mt="md" radius="md" variant="gradient" gradient={{ from: '#cfb53b', to: '#700000' }}>
-              Get Tickets Now
-            </Button>
+            <Link to="/event/67425b94473fceb7a6cd3595" style={{ textDecoration: 'none' }}>
+              <Button color="blue" fullWidth mt="md" radius="md" variant="gradient" gradient={{ from: '#cfb53b', to: '#700000' }}>
+                Get Tickets Now
+              </Button>
+            </Link>
           </Card>
         </Grid.Col>
         <Grid.Col span={3}>
@@ -108,6 +110,11 @@ function Home() {
             <Button color="blue" fullWidth mt="md" radius="md" variant="gradient" gradient={{ from: '#461D7C', to: 'maroon' }}>
               Get Tickets Now
             </Button>
+            <Link to="/event/67425be4473fceb7a6cd3597" style={{ textDecoration: 'none' }}>
+              <Button color="blue" fullWidth mt="md" radius="md" variant="gradient" gradient={{ from: '#461D7C', to: '#700000' }}>
+                Get Tickets Now
+              </Button>
+            </Link>
           </Card>
         </Grid.Col>
     </Grid>

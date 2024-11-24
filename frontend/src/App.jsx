@@ -1,6 +1,5 @@
 import {Route, Routes} from "react-router-dom";
 import Passes from "./pages/Passes";
-import Postings from "./pages/Postings";
 import HomePage from './pages/HomePage';
 import EventPage from "./pages/EventPage";
 import LogIn from "./pages/LogIn";
@@ -18,7 +17,6 @@ function App() {
       <Routes>
         <Route path = "/" element = {<HomePage/>} />
         <Route path = '/passes' element= {<Passes />} />
-        <Route path = '/postings' element= {<Postings />} />
         <Route path = "/event/:id" element={<EventPage />} />
         <Route path = "/login" element={<LogIn />} />
         <Route path = "/thanks" element={<PostPurchase/>} />
