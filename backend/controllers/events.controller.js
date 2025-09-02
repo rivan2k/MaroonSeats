@@ -1,9 +1,9 @@
-import Event from "../models/event.model.js";
 import mongoose from "mongoose";
+import EventService from "../services/EventService.js";
 
 export const getEvents = async (req, res) => {
   try {
-    const events = await Event.find({});
+    const events = await EventService.getAllEvents();
     res.status(200).json({ success: true, data: events });
   } catch (error) {
     console.log("Error fetching events:", error.message);
@@ -14,7 +14,7 @@ export const getEvents = async (req, res) => {
 export const getEventById = async (req, res) => {
   try {
     const { id } = req.params;
-    const event = await Event.findById(id).populate('tickets');  
+    const event = await EventService.getEventById(id);
 
     if (!event) {
       return res.status(404).json({ success: false, message: "Event not found" });
@@ -39,10 +39,9 @@ export const createEvent = async (req, res) => {
     return res.status(400).json({ success: false, message: "Please provide all fields" });
   }
 
-  const newEvent = new Event(event);
+  const newEvent = await EventService.createEvent(event);
 
   try {
-    await newEvent.save();
     res.status(201).json({ success: true, data: newEvent });
   } catch (error) {
     console.error("Error creating event:", error.message);
@@ -59,7 +58,7 @@ export const updateEvent = async (req, res) => {
   }
 
   try {
-    const updatedEvent = await Event.findByIdAndUpdate(id, event, { new: true });
+    const updatedEvent = await EventService.updateEvent(id, event);
     res.status(200).json({ success: true, data: updatedEvent });
   } catch (error) {
     res.status(500).json({ success: false, message: "Server Error" });
@@ -74,7 +73,7 @@ export const deleteEvent = async (req, res) => {
   }
 
   try {
-    await Event.findByIdAndDelete(id);
+    await EventService.deleteEvent(id);
     res.status(200).json({ success: true, message: "Event deleted" });
   } catch (error) {
     console.log("Error deleting event:", error.message);
