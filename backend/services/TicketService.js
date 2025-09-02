@@ -2,6 +2,8 @@ import Ticket from "../models/ticket.model.js";
 import Event from "../models/event.model.js";
 
 // SRP: only handles ticket business logic
+// OCP: new logic as new methods without modifying existing ones
+
 export default class TicketService{
     static async getAllTickets(){
         return await Ticket.find({});

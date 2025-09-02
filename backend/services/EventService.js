@@ -1,6 +1,8 @@
 import Event from "../models/event.model.js";
 
 // SRP: only handles event business logic
+// OCP: new logic as new methods without modifying existing ones
+
 export default class EventService{
     static async getAllEvents(){
         return await Event.find({});
