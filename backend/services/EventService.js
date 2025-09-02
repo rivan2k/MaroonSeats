@@ -20,4 +20,7 @@ export default class EventService{
     static async deleteEvent(id){
         return await Event.findByIdAndDelete(id);
     }
+    static async findEventsByLocation(location){
+        return await Event.find({ location });  // OCP
+    }
 }
