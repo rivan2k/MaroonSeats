@@ -1,63 +1,26 @@
 import Ticket from '../models/ticket.model.js';
+import TicketService from '../services/TicketService.js';
 import Event from "../models/event.model.js";
 import mongoose from "mongoose";
 
 export const getTicket = async (req,res) => {
     try {
-        const products = await Product.find({});
-        res.status(200).json({success: true, data: products});
+        const tickets = await TicketService.getAllTickets();
+        res.status(200).json({success: true, data: tickets});
     } catch (error) {
-        console.log("error in fetching products.", error.message);
+        console.log("error in fetching tickets.", error.message);
         res.status(500).json({success: false, message: "Server Error"});
     }
 }
 
 export const createTicket = async (req, res) => {
-  const { eventId, section, price, totalSeats, availableSeats } = req.body;
-
-  if (!eventId || !section || !price || !totalSeats || !availableSeats) {
-    return res.status(400).json({
-      success: false,
-      message: "Please provide eventId, section, price, and availableSeats",
-    });
-  }
-
   try {
-    const event = await Event.findById(eventId);
-    if (!event) {
-      return res.status(404).json({ success: false, message: "Event not found" });
-    }
-
-    const existingTicket = await Ticket.findOne({ event: eventId, section, price });
-
-    if (existingTicket) {
-      return res.status(400).json({
-        success: false,
-        message: "A ticket with this price and section already exists for the event.",
-      });
-    }
-
-   
-    const newTicket = new Ticket({
-      eventId: event._id, 
-      section,
-      price,
-      totalSeats,
-      availableSeats,
-    });
-
-    await newTicket.save();
-
-    event.tickets.push(newTicket._id);
-    await event.save();
-
+    const newTicket = await TicketService.createTicketWithEventUpdate(req.body);
     res.status(201).json({ success: true, data: newTicket });
   } catch (error) {
-    console.error("Error creating ticket:", error.message);
-    res.status(500).json({ success: false, message: "Server Error" });
+    res.statis(400).json({success: false, message: error.message });
   }
 };
-
   
 
 
