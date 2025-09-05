@@ -24,3 +24,10 @@ export default class EventService{
         return await Event.find({ location });  // OCP
     }
 }
+
+// Liskov Substitution Principle: can be used wherever EventService is expected
+export class VIPEventService extends EventService {
+    static async getAllEvents(){
+        return await Event.find({isVIP: true});
+    }
+}
