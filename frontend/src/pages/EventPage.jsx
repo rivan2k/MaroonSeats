@@ -4,6 +4,9 @@ import axios from "axios";
 import classes from "./Pages.module.css";
 import { Stack, Table, Checkbox, Button } from "@mantine/core";
 
+import EventDetails from "../components/EventDetails";
+import TicketTable from "../components/TicketTable";  
+
 function EventPage() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -81,75 +84,20 @@ function EventPage() {
     }
   };
 
-  const rows = elements.map(element => {
-    const selectedSeats = seats[element.price] || 0;
-    const totalPrice = (selectedSeats * element.price).toFixed(2); 
-
-    return (
-      <Table.Tr key={element.price} bg={selectedRows.includes(element.price) ? "var(--mantine-color-blue-light)" : undefined}>
-        <Table.Td>
-          <Checkbox
-            aria-label="Select row"
-            checked={selectedRows.includes(element.price)}
-            onChange={event =>
-              setSelectedRows(
-                event.currentTarget.checked
-                  ? [...selectedRows, element.price]
-                  : selectedRows.filter(price => price !== element.price)
-              )
-            }
-          />
-        </Table.Td>
-        <Table.Td>{element.price}</Table.Td>
-        <Table.Td>{element.section}</Table.Td>
-        <Table.Td>{element.totalSeats}</Table.Td>
-        <Table.Td>{element.availableSeats}</Table.Td> 
-        <Table.Td>
-          <input
-            type="number"
-            min="0"
-            max={element.availableSeats}
-            value={selectedSeats}
-            onChange={event => handleSeatChange(element.price, event)}
-            style={{ width: '60px', textAlign: 'center' }}
-          />
-        </Table.Td>
-        <Table.Td>{totalPrice}</Table.Td> 
-      </Table.Tr>
-    );
-  });
-
   return (
     <>
       <div style={{ textAlign: "left", marginTop: "20px", paddingBottom: "10px", paddingLeft: "20px" }}>
-        {event ? (
-          <div>
-            <h2 style={{ marginBottom: "0px" }}>{event.name}</h2>
-            <p style={{ marginBottom: "0px" }}>Time: {event.time}</p>
-            <p style={{ marginBottom: "0px" }}>Location: {event.location}</p>
-            <p style={{ marginBottom: "60px" }}>Date: {event.date}</p>
-          </div>
-        ) : (
-          <p>No event details available.</p>
-        )}
+        <EventDetails event={event} />
       </div>
       <div className={classes.container}>
         <Stack className={classes.stack}>
-          <Table highlightOnHover>
-            <Table.Thead>
-              <Table.Tr>
-                <Table.Th>Select</Table.Th>
-                <Table.Th>Ticket Price</Table.Th>
-                <Table.Th>Section</Table.Th>
-                <Table.Th>Total Seats</Table.Th>
-                <Table.Th>Seats Left</Table.Th>
-                <Table.Th># of Seats</Table.Th>
-                <Table.Th>Total Price</Table.Th> 
-              </Table.Tr>
-            </Table.Thead>
-            <Table.Tbody>{rows}</Table.Tbody>
-          </Table>
-
+          <TicketTable
+            tickets={elements}
+            seats={seats}
+            selectedRows={selectedRows}
+            setSelectedRows={setSelectedRows}
+            onSeatChange={handleSeatChange}
+          />
           <Button variant="filled" className={classes.button} onClick={handleBuyButtonClick} style={{ textAlign: "center" }}>
             Buy
           </Button>
